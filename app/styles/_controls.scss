@@ -1,0 +1,110 @@
+video {
+    width: 100%;
+    z-index: -10;
+    float: left;
+}
+
+
+
+
+
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid black;
+    position: absolute;
+}
+
+.controls {
+    display: none;
+    z-index: 100;
+    float: left;
+    width: calc(100% - 30px);
+    
+    position: absolute;
+
+    .positioner {
+        position: relative;
+        height: 100%;
+        
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255,255,255,0.3);
+            bottom:10px;
+            left: 10px;
+            position: absolute;
+            border-radius: 5px 5px 0px 5px;
+            padding: 10px 14.5px;
+            
+            i.fa {
+                color: $accent-blue;
+                font-size: 40px;
+            }
+            
+        }
+
+        .bar {
+            height: 30px;
+            background-color: rgba(255,255,255,0.3);
+            padding: 0px;
+            position: absolute;
+            bottom: 10px;
+            width: 450px;
+            left: 70px;
+            
+            .watched-bar {
+                height: 30px;
+                width: 0px;
+                background-color: $accent-blue;
+            }
+        }
+
+        .sub-bar {
+            height: 10px;
+            background-color: #dedede;
+            padding: 0px;
+            position: absolute;
+            bottom: 40px;
+            left: 70px;
+            width: 450px;
+        }
+
+        .buttons {
+            height: 40px;
+            width: 170px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 0px 5px 5px 0px;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            
+            .time {
+                float: left;
+                color: $accent-blue;
+                padding: 10px;
+                font-size: 15px;
+            }
+
+            .volume {
+                float: left;
+                color: $accent-blue;
+                padding: 10px;
+                font-size: 15px;
+            }
+
+            .fullscreen {
+                float: left;
+                color: $accent-blue;
+                padding: 10px;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+.container {
+    position: relative;
+}
