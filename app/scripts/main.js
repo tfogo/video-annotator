@@ -10,6 +10,13 @@ function zeroFill( number, width )
   return number + ""; // always return a string
 }
 
+var showSelector = function(position) {
+    $('.selector').css({
+        'display': 'block',
+        'left': position + 'px'
+    });
+}
+
 var mouseDownOnBar = function(event) {
     var positionInDiv = event.pageX - $(this).offset().left;
     var percentage = positionInDiv/$(this).width();
@@ -24,16 +31,56 @@ var mouseDownOnBar = function(event) {
     });
 };
 
+var mouseDownOnArrow = function(event) {
+    event.stopPropagation();
+    console.log('mouseDownOnArrow');
+    var positionInDiv = event.pageX - $(this).parent().offset().left;
+    var percentage = positionInDiv/$(this).parent().width();
+    $(this).css({
+        'left': positionInDiv - 10 + 'px'
+    });
+    event.data.video.currentTime = event.data.duration*percentage;
+    event.data.arrow = $(this);
+    $(window).mousemove(event.data, function(event) {
+        var positionInDiv = event.pageX - event.data.arrow.parent().offset().left;
+        var percentage = positionInDiv/event.data.arrow.parent().width();
+        event.data.arrow.css({
+            'left': positionInDiv - 10 + 'px'
+        });
+        event.data.video.currentTime = event.data.duration*percentage;
+    });
+};
+
 var mouseUpOnBar = function(event) {
     $(window).unbind('mousemove');
 };
 
+var mouseUpOnArrow = function(event) {
+    event.stopPropagation();
+    $(window).unbind('mousemove');
+};
+
 var createPointer = function(event) {
+    console.log('createPointer');
     var arrow = $('<div class=\"arrow-down\"></div>');
-    arrow.css({
-        'left': event.pageX - $(this).offset().left - 10 + 'px'
+    var arrowContainer = $('<div class=\"arrow-container\"></div>');
+    var pos = event.pageX - $(this).offset().left - 10;
+    var selectorPos = event.pageX - $('.positioner').offset().left - 10;
+    if (selectorPos < 80) {
+        selectorPos = 80;
+    } else if (selectorPos > 520 - $('.selector').width() - 20){
+        selectorPos = 520 - $('.selector').width() - 20;
+    }
+    arrowContainer.css({
+        'left': pos + 'px'
     });
-    $(this).append(arrow);
+    arrowContainer.append(arrow);
+    $(this).append(arrowContainer);
+    arrowContainer
+        .bind('mousedown', event.data, mouseDownOnArrow)
+        .bind('mouseup', event.data, mouseUpOnArrow);
+
+    showSelector(selectorPos);
 }
 
 $(document).ready(function(){
@@ -51,7 +98,11 @@ $(document).ready(function(){
             .mousedown(videoData, mouseDownOnBar)
             .mouseup(videoData, mouseUpOnBar);
 
-        $('.sub-bar').click(createPointer);
+        $('.sub-bar').click(videoData, createPointer);
+
+        $('.arrow-container')
+            .mousedown(videoData, mouseDownOnArrow)
+            .mouseup(videoData, mouseUpOnArrow);
     });
 
     $('#video').bind('loadeddata', function() {
