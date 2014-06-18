@@ -27,6 +27,29 @@ module.exports = function (grunt) {
         // Project settings
         config: config,
 
+        express: {
+            options: {
+                port: process.env.PORT || 9000
+            },
+            dev: {
+                options: {
+                    script: 'server.js',
+                    debug: true
+                }
+            },
+            prod: {
+                options: {
+                    script: 'server.js',
+                    node_env: 'production'
+                }
+            }
+        },
+        open: {
+            server: {
+                url: 'http://localhost:<%= express.options.port %>'
+            }
+        },
+
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             bower: {
@@ -358,14 +381,16 @@ module.exports = function (grunt) {
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
-            return grunt.task.run(['build', 'connect:dist:keepalive']);
+            return grunt.task.run(['build', 'express:prod', 'express-keepalive']);
         }
 
         grunt.task.run([
             'clean:server',
+            'bowerInstall',
             'concurrent:server',
             'autoprefixer',
-            'connect:livereload',
+            'express:dev',
+            'open',
             'watch'
         ]);
     });
