@@ -85,7 +85,7 @@ grunt serve:dist
 
 
 ## Help
-Any questions? Open an issue or message [@TimFogarty](https://github.com/TimFogarty).
+Any questions? Open an issue or message [@tfogo](https://github.com/tfogo).
 
 ## License
 
