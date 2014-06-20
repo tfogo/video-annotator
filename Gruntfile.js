@@ -80,7 +80,7 @@ module.exports = function (grunt) {
             },
             livereload: {
                 options: {
-                    livereload: '<%= connect.options.livereload %>'
+                    livereload: true
                 },
                 files: [
                     '<%= config.app %>/{,*/}*.html',
@@ -89,49 +89,7 @@ module.exports = function (grunt) {
                 ]
             }
         },
-
-        // The actual grunt server settings
-        connect: {
-            options: {
-                port: 9000,
-                open: true,
-                livereload: 35729,
-                // Change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
-            },
-            livereload: {
-                options: {
-                    middleware: function(connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect().use('/bower_components', connect.static('./bower_components')),
-                            connect.static(config.app)
-                        ];
-                    }
-                }
-            },
-            test: {
-                options: {
-                    open: false,
-                    port: 9001,
-                    middleware: function(connect) {
-                        return [
-                            connect.static('.tmp'),
-                            connect.static('test'),
-                            connect().use('/bower_components', connect.static('./bower_components')),
-                            connect.static(config.app)
-                        ];
-                    }
-                }
-            },
-            dist: {
-                options: {
-                    base: '<%= config.dist %>',
-                    livereload: false
-                }
-            }
-        },
-
+        
         // Empties folders to start fresh
         clean: {
             dist: {
@@ -159,16 +117,6 @@ module.exports = function (grunt) {
                 '!<%= config.app %>/scripts/vendor/*',
                 'test/spec/{,*/}*.js'
             ]
-        },
-
-        // Mocha testing framework configuration options
-        mocha: {
-            all: {
-                options: {
-                    run: true,
-                    urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-                }
-            }
         },
 
         // Compiles Sass to CSS and generates necessary files if requested
@@ -398,21 +346,6 @@ module.exports = function (grunt) {
     grunt.registerTask('server', function (target) {
         grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
         grunt.task.run([target ? ('serve:' + target) : 'serve']);
-    });
-
-    grunt.registerTask('test', function (target) {
-        if (target !== 'watch') {
-            grunt.task.run([
-                'clean:server',
-                'concurrent:test',
-                'autoprefixer'
-            ]);
-        }
-
-        grunt.task.run([
-            'connect:test',
-            'mocha'
-        ]);
     });
 
     grunt.registerTask('build', [

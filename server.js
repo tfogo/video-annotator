@@ -1,7 +1,10 @@
 var express = require('express')
 var app = express();
 var mongoose = require('mongoose');
- 
+
+// config
+var config = require('./config');
+
 // mongoose models
 require('./models');
  
@@ -9,11 +12,8 @@ require('./models');
 var routes = require('./routes');
  
 // mongodb URI
-var uristring =  
-process.env.MONGOLAB_URI || 
-process.env.MONGOHQ_URI || 
-'mongodb://localhost/video-annotator';
- 
+var uristring = config.db;
+
 // connect to db
 mongoose.connect(uristring);
 var db = mongoose.connection;
@@ -24,13 +24,16 @@ db.once('open', function(){
  
 // express config
 //app.use(app.router);
-// app.engine('html', require('ejs').renderFile);
-// app.set('view engine', 'html');
+app.set('views', __dirname + '/app/views');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 app.use(express.static(__dirname + '/app'));
- 
+app.use(express.static(__dirname + '/.tmp'));
+
 // routes
 app.get('/', routes.index);
- 
+
 // start server
-var server = app.listen(process.env.PORT || 8000);
-console.log('Express server started on port %s', server.address().port);
+var server = app.listen(process.env.PORT || 9000, function() {
+    console.log('Express server listening on port %s', server.address().port);
+});

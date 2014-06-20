@@ -1,6 +1,22 @@
-var mongoose = require('mongoose')
-    , Video = mongoose.model('Video');
- 
-exports.index = function(req, res) {
-    res.sendfile('index.html');
+var mongoose = require('mongoose');
+var fs = require('fs');
+var config = require('./config');
+var Video = mongoose.model('Video');
+
+var videos = fs.readdirSync(config.videoDir);
+
+// var videos = fs.readdir(config.videoDir, function(err, files) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log(files);
+//     }
+// });
+
+var vidNumber = 0;
+
+exports.index = function() {
+    return function(req, res) {
+        res.render('index.html', {videoName: videos[++vidNumber]});
+    }
 };
