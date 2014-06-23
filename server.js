@@ -23,15 +23,17 @@ db.once('open', function(){
 });
  
 // express config
-//app.use(app.router);
-app.set('views', __dirname + '/app/views');
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+// app.use(app.router);
+// app.use(require('connect-livereload')());
+app.engine('ejs', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/app'));
 app.use(express.static(__dirname + '/.tmp'));
+app.set('views', __dirname + '/app/views');
 
 // routes
 app.get('/', routes.index);
+app.get('/test', routes.test);
 
 // start server
 var server = app.listen(process.env.PORT || 9000, function() {

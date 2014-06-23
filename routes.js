@@ -4,7 +4,7 @@ var config = require('./config');
 var Video = mongoose.model('Video');
 
 var videos = fs.readdirSync(config.videoDir);
-
+console.log(videos);
 // var videos = fs.readdir(config.videoDir, function(err, files) {
 //     if (err) {
 //         console.log(err);
@@ -15,8 +15,6 @@ var videos = fs.readdirSync(config.videoDir);
 
 var vidNumber = 0;
 
-exports.index = function() {
-    return function(req, res) {
-        res.render('index.html', {videoName: videos[++vidNumber]});
-    }
+exports.index = function(req, res) {
+    res.render('index', {videoName: 'hello'});
 };
