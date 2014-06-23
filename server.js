@@ -1,6 +1,7 @@
 var express = require('express')
 var app = express();
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 // config
 var config = require('./config');
@@ -25,15 +26,17 @@ db.once('open', function(){
 // express config
 // app.use(app.router);
 // app.use(require('connect-livereload')());
+app.use(bodyParser());
 app.engine('ejs', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/app'));
 app.use(express.static(__dirname + '/.tmp'));
+app.use(express.static(config.videoDir));
 app.set('views', __dirname + '/app/views');
 
 // routes
 app.get('/', routes.index);
-app.get('/test', routes.test);
+app.post('/data', routes.data);
 
 // start server
 var server = app.listen(process.env.PORT || 9000, function() {

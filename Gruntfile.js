@@ -84,7 +84,7 @@ module.exports = function (grunt) {
                     livereload: true
                 },
                 files: [
-                    '<%= config.app %>/{,*/}*.html',
+                    '<%= config.app %>/{,*/}*.ejs',
                     '.tmp/styles/{,*/}*.css',
                     '<%= config.app %>/images/{,*/}*'
                 ]
@@ -165,7 +165,7 @@ module.exports = function (grunt) {
         // Automatically inject Bower components into the HTML file
         bowerInstall: {
             app: {
-                src: ['<%= config.app %>/index.html'],
+                src: ['<%= config.views %>/index.ejs'],
                 exclude: ['<%= config.app %>/bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js']
             },
             sass: {
@@ -195,7 +195,7 @@ module.exports = function (grunt) {
             options: {
                 dest: '<%= config.dist %>'
             },
-            html: '<%= config.views %>/index.html'
+            html: '<%= config.views %>/index.ejs'
         },
 
         // Performs rewrites based on rev and the useminPrepare configuration
@@ -203,7 +203,7 @@ module.exports = function (grunt) {
             options: {
                 assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
             },
-            html: ['<%= config.dist %>/{,*/}*.html'],
+            html: ['<%= config.dist %>/{,*/}*.ejs'],
             css: ['<%= config.dist %>/styles/{,*/}*.css']
         },
 

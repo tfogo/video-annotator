@@ -146,6 +146,8 @@ $(document).ready(function(){
             .split('.')
             .slice(0, -1)
             .join('.');
+
+        values.time = 
         
         $.post('/data', values)
             .done(function(data) {

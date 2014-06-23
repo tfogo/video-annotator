@@ -15,6 +15,11 @@ console.log(videos);
 
 var vidNumber = 0;
 
-exports.index = function(req, res) {
-    res.render('index', {videoName: 'hello'});
+exports.index =  function(req, res) {
+    res.render('index', {videoName: videos[vidNumber++ % 4]}); 
+};
+
+exports.data = function(req, res) {
+    console.log(req.body);
+    res.jsonp({});
 };

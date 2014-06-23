@@ -41,7 +41,7 @@
                     <div><input type="checkbox" name="selectionC">Selection C</div>
                   </form>
                     <button id="submit" class="btn btn-default">Submit</button>
-              </div>
+                </div>
                 
                 <div class="play-btn">
                   <i class="fa fa-play"></i>
