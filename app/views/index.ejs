@@ -22,49 +22,7 @@
         <![endif]-->
 
 
-        <div class="container">
-            <div class="header">
-                <h3 class="text-muted">Video Annotator <%= videoName %></h3>
-            </div>
-
-
-            <video id="video" src="<%= videoName %>" autobuffer>
-            </video>
-            
-            <div class="controls">
-              <div class="positioner">
-
-                <div class="selector">
-                  <form>
-                    <div><input type="checkbox" name="selectionA">Selection A</div>
-                    <div><input type="checkbox" name="selectionB">Selection B</div>
-                    <div><input type="checkbox" name="selectionC">Selection C</div>
-                  </form>
-                    <button id="submit" class="btn btn-default">Submit</button>
-              </div>
-                
-                <div class="play-btn">
-                  <i class="fa fa-play"></i>
-                </div>
-
-                <div class="sub-bar"></div>
-                <div class="bar">
-                  <div class="watched-bar"></div>
-                </div>
-                
-                <div class="buttons">
-                  <div class="time">00:00</div>
-                  <div class="volume">
-                    <i class="fa fa-volume-down"></i>
-                  </div>
-                  <div class="fullscreen">
-                    <i class="fa fa-expand"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-        </div>
+        <% include body %>
 
 
         <!-- build:js scripts/vendor.js -->
@@ -113,5 +71,8 @@
         <!-- build:js({app,.tmp}) scripts/main.js -->
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
+
+        <script src="//localhost:35729/livereload.js"></script>
+        
 </body>
 </html>
