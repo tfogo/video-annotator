@@ -10,12 +10,12 @@ var Period = Backbone.Model.extend({
                 this.attributes.tags[tags[i]] = false;
             }
         }
-        this.bind('change', this.save);
-        // Backbone.pubSub.on('model-change', function() {
-        //     console.log('SAVE');
-        //     console.log(this);
-        //     this.save();
-        // }, this);
+        //this.bind('change', this.save);
+        Backbone.pubSub.on('model-change', function() {
+            console.log('SAVE');
+            console.log(this);
+            this.save();
+        }, this);
     },
 
     idAttribute: "_id"
@@ -44,6 +44,7 @@ var PeriodList = Backbone.Collection.extend({
             }
         });
         Backbone.pubSub.trigger('model-change');
+        Backbone.pubSub.trigger('model-change-form');
     },
 
     setLevel: function(periodItem) {

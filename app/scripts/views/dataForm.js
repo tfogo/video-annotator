@@ -11,7 +11,7 @@ var DataFormView = Backbone.View.extend({
     //el: 'div',
     
     initialize: function() {
-        Backbone.pubSub.on('model-change', this.render, this);
+        Backbone.pubSub.on('model-change-form', this.render, this);
         this.tagNames = tagNames;
     },
 
@@ -27,7 +27,6 @@ var DataFormView = Backbone.View.extend({
         tagobj.tagdata = this.tagNames;
         tagobj.selected = this.model.attributes.selected;
         this.$el.html(this.template(tagobj));
-        console.log(tagobj);
         return this;
     },
 
@@ -39,7 +38,7 @@ var DataFormView = Backbone.View.extend({
         }
         this.model.attributes.data = JSON.stringify(this.model.attributes.tags, null, 4);
         //this.model.attributes.data2 = 'test';
-        Backbone.pubSub.trigger('button-clicked');
+        Backbone.pubSub.trigger('model-change-form');
         Backbone.pubSub.trigger('model-change');
     }
 
@@ -54,7 +53,7 @@ var DataFormListView = Backbone.View.extend({
 
     initialize: function() {
         this.collection.on('add', this.addOne, this);
-        this.collection.on('change', this.addAll, this);
+        //this.collection.on('change', this.addAll, this);
     },
     
     render: function() {
