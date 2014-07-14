@@ -1,0 +1,60 @@
+{
+    "Quality": [
+        "dark",
+        "bright",
+        "lens flare",
+        "silhouettes",
+        "blurred",
+        "obstruction",
+        "poor framing",
+        "shaky"
+    ],
+    "Content": [
+        "wheelchair racers",
+        "walking racers",
+        "front runners",
+        "fun runners",
+        "banner", 
+        "cyclist", 
+        "non-runners", 
+        "children",
+        "leading car/bike",
+        "police", 
+        "empty road", 
+        "organizers",
+        "entertainers", 
+        "spectators but no runners", 
+        "waving", 
+        "pre-race",
+        "race",
+        "post-race",
+        "scenery", 
+        "start line",
+        "finish line"
+    ],
+    "Terrain": [ 
+        "uphill",
+        "downhill",
+        "level ground", 
+        "grass",
+        "road"
+    ],
+    "Shot": [
+        "tracking",
+        "panning",
+        "camera moving", 
+        "portrait",
+        "landscape",
+        "low perspective",
+        "distant runners"
+    ],
+    "Miscellaneous": [
+        "faces not visible",
+        "crowded",
+        "background music",
+        "interesting sound",
+        "profanity",
+        "negative comments",
+        "junk footage"
+    ] 
+}

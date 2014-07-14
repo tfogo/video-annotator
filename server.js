@@ -5,12 +5,6 @@ var bodyParser = require('body-parser');
 
 // config
 var config = require('./config');
-
-// mongoose models
-require('./models');
- 
-// routes
-var routes = require('./routes');
  
 // mongodb URI
 var uristring = config.db;
@@ -22,6 +16,9 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
     console.log("Mongoose started!");
 });
+
+// mongoose models
+require('./models');
  
 // express config
 // app.use(app.router);
@@ -35,8 +32,7 @@ app.use(express.static(config.videoDir));
 app.set('views', __dirname + '/app/views');
 
 // routes
-app.get('/', routes.index);
-app.post('/data', routes.data);
+require('./controllers/routes')(app);
 
 // start server
 var server = app.listen(process.env.PORT || 9000, function() {

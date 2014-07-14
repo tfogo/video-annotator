@@ -1,0 +1,119 @@
+.tag-frame {
+    background-image: linear-gradient(
+        $grey, $dark-grey
+    );
+    height: 300px;
+    width: 100%;
+    padding: 20px;
+
+    .timeline {
+        position: relative;
+        height: 100%;
+
+        .hline {
+            background-color: $light-grey;
+            width: 100%;
+            position: absolute;
+            height: 1px;
+            bottom: 19px;
+        }
+
+        .tick-container {
+            position: absolute;
+            bottom: 0px;
+            top: 0px;
+            
+            .mtick {
+                position: absolute;
+                background-color: $light-grey;
+                width: 3px;
+                height: 11px;
+                margin-left: -1px;
+                bottom: 13px;
+            }
+
+            .stick {
+                top: 0px;
+                position: absolute;
+                width: 1px;
+                bottom: 20px;
+                background: #fff;
+                opacity: .2;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+                filter: alpha(opacity=20);
+
+            }
+
+            .time-label {
+                position: absolute;
+                color: $light-grey;
+                margin-left: -15px;;
+                width: 30px;
+                text-align: center;
+                bottom: -5px;
+                font-size: 12px;
+            }
+        }
+
+        .period{
+            position: absolute;
+            bottom: 21px;
+            height: 30px;
+            background-color: $light-grey;
+            border-radius: 5px;
+            border-right: 3px solid $blue1;
+            border-left: 3px solid $blue1;
+
+            .left-handle {
+                height: 30px;
+                width: 3px;
+                float: left; 
+            }
+
+            .left-handle:hover {
+                cursor: col-resize; 
+            }
+
+            .right-handle {
+                height: 30px;
+                width: 3px;
+            }
+
+            .right-handle:hover {
+                cursor: col-resize; 
+            }
+        }
+
+        .period.selected {
+            box-shadow: inset 0 0 15px rgba(255,255,255,.5);
+        }
+    }
+
+    .playhead {
+        position: absolute;
+        bottom: 0px;
+        top: 0px;
+        z-index: 10;
+
+        .playhead-thumb {
+            height: 15px;
+            width: 10px;
+            margin-left: -4px;
+            background-image: url('/images/pointer.png');
+            position: absolute;
+            bottom: 10px;
+        }
+
+        .playhead-line {
+            top: 0px;
+            background-color: #fff;
+            width: 1px;
+            position: absolute;
+            bottom:25px;
+        }
+
+        .playhead-thumb:hover {
+            cursor: col-resize;
+        }
+    }
+}

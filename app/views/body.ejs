@@ -1,6 +1,7 @@
 <div class="container">
   <div class="header">
-    <h3 class="text-muted">Video Annotator <%= videoName %></h3>
+    <h3 class="text-muted">Video Annotator <%= videoName %> <p class="pull-right">1234 <a href="#">log out</a></p></h3>
+    
   </div>
 
   <div class="row">
@@ -9,22 +10,56 @@
       </video>
       
       <div class="controls">
+        <div id="bar" class="bar">
+          <div class="buffered-bar"></div>
+          <div id="watched-bar" class="watched-bar"></div>
+        </div>
         
-        <div class="play-btn">
+        <div id="play-btn" class="play-btn">
           <i class="fa fa-play"></i>
         </div>
 
-        <div class="bar">
-          <div class="watched-bar"></div>
-          <div class="buffered-bar"></div>
-        </div>
-        
         <div class="buttons">
-          <div class="time">00:00</div>
+          <div id="time" class="time"></div>
           <div class="volume">
             <i class="fa fa-volume-down"></i>
+
+            <div class="vol-bar-container">
+              <div class="vol-bar"></div>
+              <div class="vol-up-bar"></div>
+              <div class="vol-thumb"></div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="tag-frame">
+        <div class="timeline">
+          <div class="hline"></div>
+          
+          <div class="ticks"></div>
+
+          <div class="playhead">
+            <div class="playhead-line"></div>
+            <div class="playhead-thumb"></div>
           </div>
         </div>
+        
+        
+      </div>
+      
+    </div>
+
+    <div id="data" class="col-sm-4">
+      <div class="form-group">
+        <button id="point-btn" type="button" class="btn btn-lg btn-default">Tag a Point</button>
+        <button id="period-btn" type="button" class="btn btn-lg btn-default">Tag a Period</button>
+      </div>
+      
+
+      <div id="data-form">
         
       </div>
       
