@@ -15,10 +15,12 @@ var DataFormView = Backbone.View.extend({
         this.tagNames = tagNames;
     },
 
-    template: _.template('<div style="display:<% if(selected) { %> block <% } else { %> none <% } %>;"><% for (var type in tagdata) { %> <h4><%= type %></h4><% var tags = tagdata[type]; for (var i = 0; i < tags.length; i++) { %><button type="button" class="btn <% if (this.model.attributes.tags[tags[i]]) { %> btn-primary <% } else { %> btn-default <% } %> btn-xs" data-toggle="button"><%= tags[i] %></button> <% } } %></div>'),
+    template: _.template('<div style="display:<% if(selected) { %> block <% } else { %> none <% } %>;"><% for (var type in tagdata) { %> <h4><%= type %></h4><% var tags = tagdata[type]; for (var i = 0; i < tags.length; i++) { %><button type="button" class="btn tag-toggle <% if (this.model.attributes.tags[tags[i]]) { %> btn-primary <% } else { %> btn-default <% } %> btn-xs" data-toggle="button"><%= tags[i] %></button> <% } } %><h4>Comments</h4><textarea rows="5" id="comments" class="form-control"><%= comments %></textarea><hr><button type="button" class="btn tag-delete btn-danger pull-right">Delete tag</button></div>'),
 
     events: {
-        'click button': 'selectTag'
+        'click .tag-toggle': 'selectTag',
+        'change textarea': 'setComments',
+        //'click .tag-delete': 'deleteTag'
     },
     
     render: function(tagdata) {
@@ -26,6 +28,7 @@ var DataFormView = Backbone.View.extend({
         var tagobj = {};
         tagobj.tagdata = this.tagNames;
         tagobj.selected = this.model.attributes.selected;
+        tagobj.comments = this.model.attributes.comments;
         this.$el.html(this.template(tagobj));
         return this;
     },
@@ -40,7 +43,19 @@ var DataFormView = Backbone.View.extend({
         //this.model.attributes.data2 = 'test';
         Backbone.pubSub.trigger('model-change-form');
         Backbone.pubSub.trigger('model-change');
-    }
+    },
+
+    setComments: function(e) {
+        this.model.attributes.comments = $(e.target).val();
+        Backbone.pubSub.trigger('model-change');
+    },
+
+    // deleteTag: function(e) {
+    //     console.log(this.model);
+    //     this.model.destroy();
+    //     Backbone.pubSub.trigger('delete-tag', this);
+    //     //this.remove();
+    // }
 
 });
 
@@ -53,7 +68,8 @@ var DataFormListView = Backbone.View.extend({
 
     initialize: function() {
         this.collection.on('add', this.addOne, this);
-        //this.collection.on('change', this.addAll, this);
+        //Backbone.pubSub.on('delete-tag', this.removeModel, this);
+
     },
     
     render: function() {
@@ -69,6 +85,10 @@ var DataFormListView = Backbone.View.extend({
 
     addAll: function() {
         this.collection.forEach(this.addOne, this);
+    },
+
+    removeModel: function(el) {
+        this.collection.remove(el);
     }
 });
 

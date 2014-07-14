@@ -101,3 +101,13 @@ body {
         border-bottom: 0;
     }
 }
+
+.outer-table {
+   display: table;
+   width: 100%;
+}
+.inner-table {
+   display: table-cell;
+   text-align: center;
+   vertical-align: middle;
+}

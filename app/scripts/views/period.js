@@ -9,6 +9,8 @@ var PeriodView = Backbone.View.extend({
             console.log('CHANGE!!!');
         });
         Backbone.pubSub.on('model-change', this.render, this);
+        
+        //Backbone.pubSub.on('delete-tag', this.remove, this);
     },
 
     events: {

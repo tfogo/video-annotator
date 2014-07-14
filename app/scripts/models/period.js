@@ -32,7 +32,7 @@ var PeriodList = Backbone.Collection.extend({
         this.on('add', this.setSelected, this);
         Backbone.pubSub.on('model-change2', this.setLevel, this);
         Backbone.pubSub.on('model-change3', this.setSelected, this);
-      
+        
     },
 
     setSelected: function(periodItem) {

@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var fs = require('fs');
 var config = require('../config');
 
+
 var tags = require('./tags');
 
 var videos = fs.readdirSync(config.videoDir);
@@ -9,25 +10,30 @@ var tagnames = JSON.parse(fs.readFileSync('tags.json'));
 
 var vidNumber = 0;
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
+    app.post('/users/session', passport.authenticate('local', {
+        failureRedirect: '/failure',
+        failureFlash: true
+    }), function(req, res) {
+        res.redirect('/watch?v=' + videos[vidNumber++ % 4]);
+    });
     
-    // app.get('/tags', podcasts.all);
-    // app.post('/tags', authorization.requiresLogin, podcasts.create);
-    // app.get('/tags/:tagId', podcasts.show);
-    // app.put('/tags/:tagId', authorization.requiresLogin, hasAuthorization, podcasts.update);
-    // app.del('/tags/tagId', authorization.requiresLogin, hasAuthorization, podcasts.destroy);
-
     app.get('/tags', tags.all);
     app.post('/tags', tags.create);
     app.get('/tags/:tagId', tags.show);
     app.put('/tags/:tagId', tags.update);
-    app.del('/tags/tagId', tags.destroy);
+    app.delete('/tags/:tagId', tags.destroy);
 
     app.param('tagId', tags.tag);
 
     app.get('/', function(req, res) {
-        res.render('index', {videoName: videos[vidNumber++ % 4]}); 
+        res.render('login', {videoName: videos[vidNumber++ % 4]}); 
+    });
+
+    app.get('/watch', function(req, res) {
+        console.log('WAHEY');
+        res.render('body', {videoName: req.query['v'], username: req.user.username}); 
     });
 
     app.post('/data', function(req, res) {
