@@ -28,7 +28,11 @@ module.exports = function(app, passport) {
     app.param('tagId', tags.tag);
 
     app.get('/', function(req, res) {
-        res.render('login', {videoName: videos[vidNumber++ % 4]}); 
+        if(!!req.user) {
+            res.redirect('/watch?v=' + videos[vidNumber++ % 4]);
+        } else {
+            res.render('login'); 
+        }
     });
 
     app.get('/watch', function(req, res) {

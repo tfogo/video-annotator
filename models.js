@@ -10,7 +10,9 @@ var TagSchema = new Schema({
     endTime: Number,
     data: String,
     dateSubmitted: Date,
-    comments: String
+    comments: String,
+    vidName: String,
+    username: String
 });
 
 // var VideoSchema = new Schema({

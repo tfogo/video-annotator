@@ -28,7 +28,8 @@ var DataView = Backbone.View.extend({
             endTime: 100 - percentage - 10,
             level: 0,
             selected: true,
-            period: true
+            period: true,
+            vidName: $('#video').attr('src');
         });
     },
 
@@ -43,7 +44,8 @@ var DataView = Backbone.View.extend({
             endTime: percentage,
             level: 0,
             selected: true,
-            period: false
+            period: false,
+            vidName: $('#video').attr('src');
         });
     }
     
