@@ -16,6 +16,7 @@ var Period = Backbone.Model.extend({
             console.log(this);
             this.save();
         }, this);
+
     },
 
     idAttribute: "_id"
@@ -28,9 +29,9 @@ var PeriodList = Backbone.Collection.extend({
     url: '/tags',
 
     initialize: function() {
-        this.on('add', this.setLevel, this);
+        //this.on('add', this.setLevel, this);
         this.on('add', this.setSelected, this);
-        Backbone.pubSub.on('model-change2', this.setLevel, this);
+        //Backbone.pubSub.on('model-change2', this.setLevel, this);
         Backbone.pubSub.on('model-change3', this.setSelected, this);
         
     },

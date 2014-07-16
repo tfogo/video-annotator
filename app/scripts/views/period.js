@@ -2,7 +2,7 @@
 
 var PeriodView = Backbone.View.extend({
     //className: 'period',
-    //el: 'div',
+    //el: '.timeline',
 
     initialize: function() {
         this.model.on('change', function() {
@@ -13,6 +13,9 @@ var PeriodView = Backbone.View.extend({
         //Backbone.pubSub.on('delete-tag', this.remove, this);
     },
 
+    
+    holdingDiv: _.template('<div class="holding-div"></div>'),
+    
     events: {
         'mousedown .right-handle': 'rightDrag',
         'mousedown .left-handle': 'leftDrag',
@@ -26,11 +29,13 @@ var PeriodView = Backbone.View.extend({
 
     render: function() {
         console.log(this.model.attributes.period);
+        $('.timeline, .tag-frame').height(32*periodList.length + 30);
         if (this.model.attributes.period) {
             return this.renderPeriod();
         } else {
             return this.renderPoint();
         }
+        
     },
     
     renderPeriod: function() {
@@ -138,6 +143,7 @@ var PeriodView = Backbone.View.extend({
 var PeriodListView = Backbone.View.extend({
     el: '.timeline',
 
+
     initialize: function() {
         this.collection.on('add', this.addOne, this);
         this.collection.on('change', this.addAll, this);
@@ -145,6 +151,7 @@ var PeriodListView = Backbone.View.extend({
     
     render: function() {
         console.log('period list view render');
+        
         this.addAll();
     },
 

@@ -26,7 +26,7 @@ var DataView = Backbone.View.extend({
         periodList.add({
             startTime: percentage,
             endTime: 100 - percentage - 10,
-            level: 0,
+            level: periodList.length,
             selected: true,
             period: true,
             vidName: $('#video').attr('src')
@@ -42,7 +42,7 @@ var DataView = Backbone.View.extend({
         periodList.add({
             startTime: percentage,
             endTime: percentage,
-            level: 0,
+            level: periodList.length,
             selected: true,
             period: false,
             vidName: $('#video').attr('src')
