@@ -16,7 +16,7 @@ module.exports = function(app, passport) {
         failureRedirect: '/failure',
         failureFlash: true
     }), function(req, res) {
-        res.redirect('/watch?v=' + videos[vidNumber++ % 30]);
+        res.redirect('/watch?v=' + videos[vidNumber++ % videos.length]);
     });
     
     app.get('/tags', tags.all);
@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
 
     app.get('/', function(req, res) {
         if(!!req.user) {
-            res.redirect('/watch?v=' + videos[vidNumber++ % 30]);
+            res.redirect('/watch?v=' + videos[vidNumber++ % videos.length]);
         } else {
             res.render('login'); 
         }
