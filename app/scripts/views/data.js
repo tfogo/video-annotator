@@ -41,7 +41,7 @@ var DataView = Backbone.View.extend({
         var percentage = (currentTime/duration)*100;
         periodList.add({
             startTime: percentage,
-            endTime: percentage,
+            endTime: 100 - percentage,
             level: periodList.length,
             selected: true,
             period: false,

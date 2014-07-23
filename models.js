@@ -15,12 +15,13 @@ var TagSchema = new Schema({
     username: String
 });
 
-// var VideoSchema = new Schema({
-//     name: String,
-//     tags: [TagSchema]
-// });
+var VideoSchema = new Schema({
+    name: String,
+    users: [String],
+    numberOfUsers: {type: Number, default: 0}
+});
 
-//mongoose.model('Video', VideoSchema);
+mongoose.model('Video', VideoSchema);
 
 TagSchema.statics.load = function(id, cb) {
     this.findOne({

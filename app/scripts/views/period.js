@@ -69,7 +69,16 @@ var PeriodView = Backbone.View.extend({
         $(window).mousemove(data, function(e) {
             var positionInDiv = event.pageX - e.data.playhead.parent().offset().left;
             var percentage = positionInDiv/e.data.playhead.parent().width();
-            data.model.attributes.endTime = 100 - percentage*100;
+            var pixeldiff = ((percentage*100 - data.model.attributes.startTime)/100)*e.data.playhead.parent().width();
+            console.log(pixeldiff);
+            if (percentage > 1) {
+                data.model.attributes.endTime = 0;
+            } else if (pixeldiff < 15) {
+                var end = 100 - data.model.attributes.startTime - 100*15/e.data.playhead.parent().width();
+                data.model.attributes.endTime = end;
+            } else {
+                data.model.attributes.endTime = 100 - percentage*100;
+            }
             Backbone.pubSub.trigger('model-change');
             Backbone.pubSub.trigger('model-change2', data.model);
         });
@@ -93,7 +102,17 @@ var PeriodView = Backbone.View.extend({
         $(window).mousemove(data, function(e) {
             var positionInDiv = event.pageX - e.data.playhead.parent().offset().left;
             var percentage = positionInDiv/e.data.playhead.parent().width();
-            data.model.attributes.startTime = percentage*100;
+            var pixeldiff = ((100 - data.model.attributes.endTime - percentage*100)/100)*e.data.playhead.parent().width();
+            console.log(pixeldiff);
+            if (percentage < 0) {
+                data.model.attributes.startTime = 0;
+            } else if (pixeldiff < 15) {
+                var start = 100 - data.model.attributes.endTime - 100*15/e.data.playhead.parent().width();
+                data.model.attributes.startTime = start;
+            } else {
+                data.model.attributes.startTime = percentage*100;
+            }
+            
             Backbone.pubSub.trigger('model-change');
             Backbone.pubSub.trigger('model-change2', data.model);
         });
@@ -121,13 +140,17 @@ var PeriodView = Backbone.View.extend({
             var positionInDiv = event.pageX - e.data.playhead.parent().offset().left;
             var percentage = positionInDiv/e.data.playhead.parent().width();
             var percentageChange = percentage - startPercentage;
+            console.log(percentage);
+            console.log(percentageChange);
             data.model.attributes.startTime = origStartTime + percentageChange*100;
             data.model.attributes.endTime = origEndTime - percentageChange*100;
             if (data.model.attributes.endTime < 0) {
                 data.model.attributes.endTime = 0;
+                data.model.attributes.startTime = 100 - (100 - origEndTime - origStartTime);
             }
             if (data.model.attributes.startTime < 0) {
                 data.model.attributes.startTime = 0;
+                data.model.attributes.endTime = 100 - (100 - origEndTime - origStartTime);
             }
             
             Backbone.pubSub.trigger('model-change');
