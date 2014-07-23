@@ -58,10 +58,6 @@ var DataFormView = Backbone.View.extend({
         Backbone.pubSub.trigger('delete-tag', this);
     },
 
-    highlightTags: function() {
-        console.log('highlight');
-    },
-
     currentTag: function(tag) {
         var video = $('#video')[0];
         var duration = video.seekable.end(0);

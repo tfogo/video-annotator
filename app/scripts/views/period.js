@@ -9,7 +9,7 @@ var PeriodView = Backbone.View.extend({
             console.log('CHANGE!!!');
         });
         Backbone.pubSub.on('model-change', this.render, this);
-        
+        this.model.on('hide', this.remove, this);
         //Backbone.pubSub.on('delete-tag', this.remove, this);
     },
 
@@ -20,12 +20,13 @@ var PeriodView = Backbone.View.extend({
         'mousedown .right-handle': 'rightDrag',
         'mousedown .left-handle': 'leftDrag',
         'mousedown .period': 'fullDrag',
+        'mouseup .period': 'jumpToStart',
         'click .period': 'selectPeriod'
     },
     
     templatePeriod: _.template('<div class="period <% if (selected) { %>selected<% } %>" style="left: <%= startTime %>%; right: <%= endTime %>%; bottom: <%= 22 + 32*level %>px;"><div class="left-handle"></div><div class="right-handle pull-right"></div></div>'),
 
-    templatePoint: _.template('<div class="period <% if (selected) { %>selected<% } %>" style="left: <%= startTime %>%; width: 6px; bottom: <%= 22 + 32*level %>px;"><div class="left-handle"></div><div class="right-handle pull-right"></div></div>'),
+    templatePoint: _.template('<div class="period point <% if (selected) { %>selected<% } %>" style="left: <%= startTime %>%; width: 6px; bottom: <%= 22 + 32*level %>px;"></div></div>'),
 
     render: function() {
         console.log(this.model.attributes.period);
@@ -136,6 +137,12 @@ var PeriodView = Backbone.View.extend({
         $(window).mouseup(function() {
             $(window).unbind('mousemove');
         });
+    },
+
+    jumpToStart: function(e) {
+        var video = $('#video')[0];
+        var duration = video.seekable.end(0);
+        video.currentTime = duration*this.model.attributes.startTime/100;
     }
 
 });
@@ -147,6 +154,7 @@ var PeriodListView = Backbone.View.extend({
     initialize: function() {
         this.collection.on('add', this.addOne, this);
         this.collection.on('change', this.addAll, this);
+        Backbone.pubSub.on('delete-tag', this.removeView, this);
     },
     
     render: function() {
@@ -163,6 +171,13 @@ var PeriodListView = Backbone.View.extend({
 
     addAll: function() {
         this.collection.forEach(this.addOne, this);
+    },
+
+    removeView: function(el) {
+        this.addAll();
+        console.log(el);
+        console.log(this);
+        //this.collection.remove(el);
     }
 });
 

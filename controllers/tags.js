@@ -24,8 +24,7 @@ exports.tag = function(req, res, next, id) {
  */
 exports.create = function(req, res) {
     var tag = new Tag(req.body);
-    //tag.user = req.user.name;
-    //tag.score = 0;
+    tag.username = req.user.username;
     tag.dateSubmitted = new Date().getTime();
 
     tag.save(function(err) {
@@ -67,6 +66,7 @@ exports.update = function(req, res) {
  */
 exports.destroy = function(req, res) {
     var tag = req.tag;
+    console.log('delete!');
 
     tag.remove(function(err) {
         if (err) {

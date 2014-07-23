@@ -1,7 +1,7 @@
 'use strict';
 
 var Period = Backbone.Model.extend({
-    //urlRoot: '/period',
+    urlRoot: '/tags',
     initialize: function() {
         this.attributes.tags = {};
         for (var type in tagNames) {
@@ -33,7 +33,13 @@ var PeriodList = Backbone.Collection.extend({
         this.on('add', this.setSelected, this);
         //Backbone.pubSub.on('model-change2', this.setLevel, this);
         Backbone.pubSub.on('model-change3', this.setSelected, this);
+        this.on('remove',this.hideModel);
         
+    },
+
+    hideModel: function(model) {
+        console.log('hide model');
+        model.trigger('hide');
     },
 
     setSelected: function(periodItem) {

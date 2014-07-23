@@ -36,6 +36,7 @@ var PlayheadView = Backbone.View.extend({
         dataFormListView.collection.forEach(function(period) {
             period.attributes.selected = false;
         }, this);
+        Backbone.pubSub.trigger('model-change-form');
         Backbone.pubSub.trigger('model-change');
         
         $(window).mousemove(data, function(e) {
