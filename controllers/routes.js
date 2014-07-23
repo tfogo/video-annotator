@@ -19,6 +19,18 @@ var findVid = function(user) {
     
 }
 
+Video.find({}).remove();
+videos.forEach(function(vidname) {
+    var vid = new Video({name: vidname});
+    vid.save(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(vid);
+        }
+    });
+});
+
 module.exports = function(app, passport) {
 
     app.post('/users/session', passport.authenticate('local', {
