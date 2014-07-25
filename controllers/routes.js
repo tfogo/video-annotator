@@ -19,7 +19,7 @@ var findVid = function(user) {
     
 }
 
-Video.find({}).remove();
+Video.remove({});
 videos.forEach(function(vidname) {
     var vid = new Video({name: vidname});
     vid.save(function(err) {
@@ -37,7 +37,19 @@ module.exports = function(app, passport) {
         failureRedirect: '/failure',
         failureFlash: true
     }), function(req, res) {
-        res.redirect('/watch?v=' + videos[vidNumber++ % videos.length]);
+        Video.find({users: {$ne: req.user.username}}).sort('numberOfUsers').limit(1).exec(function(err, vid) {
+                videoObj = vid[0]
+                console.log(videoObj);
+                videoObj.numberOfUsers++;
+                videoObj.users.push(req.user.username);
+                console.log(videoObj);
+                videoObj.save(function(err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                }); 
+                res.redirect('/watch?v=' + videoObj.name);
+            });
     });
     
     app.get('/tags', tags.all);
