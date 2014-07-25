@@ -5,9 +5,12 @@ var Period = Backbone.Model.extend({
     initialize: function() {
         this.attributes.tags = {};
         for (var type in tagNames) {
-            var tags = tagNames[type];
-            for (var i = 0; i < tags.length; i++) {
-                this.attributes.tags[tags[i]] = false;
+            var tagsarr = tagNames[type];
+            for (var i = 0; i < tagsarr.length; i++) {
+                var tags = tagsarr[i];
+                for (var j = 0; j < tags.length; j++) {
+                    this.attributes.tags[tags[j]] = false;
+                }
             }
         }
         //this.bind('change', this.save);
