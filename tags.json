@@ -1,17 +1,4 @@
 {
-    "Quality": [
-        ["too dark",
-        "too bright",
-        "blurred",
-        "shaky"],
-        ["lens flare",
-        "silhouettes",
-        "obstruction",
-        "poor framing",
-        "too distant",
-        "faces not visible",
-        "junk footage"]
-    ],
     "Content": [
         ["wheelchair racers",
         "walking racers",
@@ -35,7 +22,7 @@
         "cheering/clapping"]
     ],
     "Terrain": [
-        ["empty course",
+        ["quiet course",
         "busy course",
         "scenery"],
         ["grass section",
@@ -44,11 +31,25 @@
         "downhill",
         "level ground"]
     ],
+    "Quality": [
+        ["too dark",
+        "too bright",
+        "blurred",
+        "shaky"],
+        ["lens flare",
+        "silhouettes",
+        "obstruction",
+        "poor framing",
+        "too distant",
+        "faces not visible",
+        "junk footage"]
+    ],
     "Shot": [
-        ["tracking",
+        ["still shot",
+        "low perspective",
+        "tracking",
         "panning",
-        "camera moving",
-        "low perspective"],
+        "camera moving"],
         ["portrait",
         "landscape"]
     ],
