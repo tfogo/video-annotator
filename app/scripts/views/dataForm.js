@@ -16,7 +16,7 @@ var DataFormView = Backbone.View.extend({
         Backbone.pubSub.on('vid-timeupdate', this.render, this);
     },
 
-    template: _.template('<div style="display:<% if(selected) { %> block <% } else { %> none <% } %>;"><h4>Custom Tag</h4><textarea rows="1" id="comments" class="form-control"><%= comments %></textarea><% for (var type in tagdata) { %> <h4><%= type %></h4><% var tags = tagdata[type]; for (var i = 0; i < tags.length; i++) { %><button type="button" class="btn tag-toggle <% if (this.model.attributes.tags[tags[i]]) { %> btn-primary <% } else if (this.currentTag(tags[i])) { %> btn-success <% } else { %> btn-default <% } %> btn-xs" data-toggle="button"><%= tags[i] %></button> <% } } %><hr><button type="button" class="btn tag-delete btn-danger pull-right">Delete tag</button></div>'),
+    template: _.template('<div style="display:<% if(selected) { %> block <% } else { %> none <% } %>;"><h4>Custom Tag</h4><textarea rows="1" id="comments" class="form-control"><%= comments %></textarea><% for (var type in tagdata) { %><h4><%= type %></h4><% var tagsarr = tagdata[type]; for (var i = 0; i < tagsarr.length; i++) { var tags = tagsarr[i]; for (var j = 0; j < tags.length; j++) { %><button type="button" class="btn tag-toggle <% if (this.model.attributes.tags[tags[j]]) { %> btn-primary <% } else if (this.currentTag(tags[j])) { %> btn-success <% } else { %> btn-default <% } %> btn-xs" data-toggle="button"><%= tags[j] %></button><% } %> <br> <%} } %><hr><button type="button" class="btn tag-delete btn-danger pull-right">Delete tag</button></div>'),
 
     events: {
         'click .tag-toggle': 'selectTag',

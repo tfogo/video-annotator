@@ -1,60 +1,63 @@
 {
     "Quality": [
-        "dark",
-        "bright",
-        "lens flare",
-        "silhouettes",
+        ["too dark",
+        "too bright",
         "blurred",
+        "shaky"],
+        ["lens flare",
+        "silhouettes",
         "obstruction",
         "poor framing",
-        "shaky"
+        "too distant",
+        "faces not visible",
+        "junk footage"]
     ],
     "Content": [
-        "wheelchair racers",
+        ["wheelchair racers",
         "walking racers",
+        "running racers",
         "front runners",
+        "pace runner",
         "fun runners",
-        "banner", 
-        "cyclist", 
-        "non-runners", 
-        "children",
-        "leading car/bike",
-        "police", 
-        "empty road", 
-        "organizers",
-        "entertainers", 
-        "spectators but no runners", 
-        "waving", 
-        "pre-race",
+        "runner with banner"],
+        ["pre-race",
+        "start line",
         "race",
         "post-race",
-        "scenery", 
-        "start line",
-        "finish line"
+        "finish line"],
+        ["spectators",
+        "cyclist",
+        "police",
+        "organizers",
+        "entertainers",
+        "children",
+        "runners waving",
+        "cheering/clapping"]
     ],
-    "Terrain": [ 
-        "uphill",
+    "Terrain": [
+        ["empty course",
+        "busy course",
+        "scenery"],
+        ["grass section",
+        "road section"],
+        ["uphill",
         "downhill",
-        "level ground", 
-        "grass",
-        "road"
+        "level ground"]
     ],
     "Shot": [
-        "tracking",
+        ["tracking",
         "panning",
-        "camera moving", 
-        "portrait",
-        "landscape",
-        "low perspective",
-        "distant runners"
+        "camera moving",
+        "low perspective"],
+        ["portrait",
+        "landscape"]
     ],
-    "Miscellaneous": [
-        "faces not visible",
-        "crowded",
-        "background music",
+    "Audio": [
+        ["background music",
         "interesting sound",
-        "profanity",
-        "negative comments",
-        "junk footage"
-    ] 
+        "professional commentary",
+        "amateur commentary"],
+        ["profanity",
+        "negative comments"]
+    ]
 }
