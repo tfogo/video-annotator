@@ -64,64 +64,69 @@ var popduration = function() {
     });
 };
 
+//popduration();
+
 noTags = 0;
 JSONTags = [];
 XMLTags = [];
-fs.writeFile('tagdata.xml', '<?xml version="1.0" encoding="UTF-8"?>\n', function (err) {
-    if (err) throw err;
-    console.log('It\'s saved!');
-});
-fs.writeFile('tagdata.json', '{data:[', function (err) {
-    if (err) throw err;
-    console.log('It\'s saved!');
-});
+// fs.writeFile('tagdata.xml', '<?xml version="1.0" encoding="UTF-8"?>\n', function (err) {
+//     if (err) throw err;
+//     console.log('It\'s saved!');
+// });
+// fs.writeFile('tagdata.json', '{data:[', function (err) {
+//     if (err) throw err;
+//     console.log('It\'s saved!');
+// });
 
 var numberOfTags = function() {
     Tag.find({}, function(err, tags){
         tags.forEach(function(tag) {
 
-            if (!!tag.comments) {
-                noTags++;
-                var XMLString = '<tag comment="true">\n\t<name>' + tag.comments + '</name>\n\t<user>' + tag.username + '</user>\n\t<video>' + tag.vidName + '</video>\n\t';
-                if (tag.startTime === 100 - tag.endTime) {
-                    XMLString += '<type>point</type>\n\t<time>' + (tag.startTime/100)*vid.duration + '</time>\n';
-                } else {
-                    XMLString += '<type>period</type>\n\t<start-time>' + (tag.startTime/100)*vid.duration + '</start-time>\n\t<end-time>' + ((100 - tag.endTime)/100)*vid.duration + '</end-time>\n';
-                }
-                XMLString += '</tag>\n';
-                console.log(XMLString);
-                XMLTags.push(XMLString);
-                fs.appendFile('tagdata.xml', XMLString, function (err) {
-                    if (err) throw err;
-                    console.log('It\'s saved!');
-                });
-                console.log(noTags);
-            }
             
             Video.find({name: tag.vidName}, function(err, vids){
                 
                 var vid = vids[0];
                 
-                var tagdata = JSON.parse(tag.data);
-                for (var data in tagdata) {
-                    if (tagdata[data]) {
-                        noTags++;
-                        var XMLString = '<tag>\n\t<name>' + data + '</name>\n\t<user>' + tag.username + '</user>\n\t<video>' + tag.vidName + '</video>\n\t';
-                        if (tag.startTime === 100 - tag.endTime) {
-                            XMLString += '<type>point</type>\n\t<time>' + (tag.startTime/100)*vid.duration + '</time>\n';
-                        } else {
-                            XMLString += '<type>period</type>\n\t<start-time>' + (tag.startTime/100)*vid.duration + '</start-time>\n\t<end-time>' + ((100 - tag.endTime)/100)*vid.duration + '</end-time>\n';
-                        }
-                        XMLString += '</tag>\n';
-                        console.log(XMLString);
-                        XMLTags.push(XMLString);
-                        fs.appendFile('tagdata.xml', XMLString, function (err) {
-                            if (err) throw err;
-                            console.log('It\'s saved!');
-                        });
-                        console.log(noTags);
+		if (!!tag.comments) {
+                    noTags++;
+                    var XMLString = '<tag comment="true">\n\t<name>' + tag.comments + '</name>\n\t<user>' + tag.username + '</user>\n\t<video>' + tag.vidName + '</video>\n\t';
+                    if (tag.startTime === 100 - tag.endTime) {
+			XMLString += '<type>point</type>\n\t<time>' + (tag.startTime/100)*vid.duration + '</time>\n';
+                    } else {
+			XMLString += '<type>period</type>\n\t<start-time>' + (tag.startTime/100)*vid.duration + '</start-time>\n\t<end-time>' + ((100 - tag.endTime)/100)*vid.duration + '</end-time>\n';
                     }
-                }
+                    XMLString += '</tag>\n';
+                    console.log(XMLString);
+                    XMLTags.push(XMLString);
+                    fs.appendFile('tagdata.xml', XMLString, function (err) {
+			if (err) throw err;
+			console.log('It\'s saved!');
+                    });
+                    console.log(noTags);
+		}
+
+		if (!!tag.data){
+                    var tagdata = JSON.parse(tag.data);
+                    for (var data in tagdata) {
+			if (tagdata[data]) {
+                            noTags++;
+                            var XMLString = '<tag>\n\t<name>' + data + '</name>\n\t<user>' + tag.username + '</user>\n\t<video>' + tag.vidName + '</video>\n\t';
+                            if (tag.startTime === 100 - tag.endTime) {
+				XMLString += '<type>point</type>\n\t<time>' + (tag.startTime/100)*vid.duration + '</time>\n';
+                            } else {
+				XMLString += '<type>period</type>\n\t<start-time>' + (tag.startTime/100)*vid.duration + '</start-time>\n\t<end-time>' + ((100 - tag.endTime)/100)*vid.duration + '</end-time>\n';
+                            }
+                            XMLString += '</tag>\n';
+                            console.log(XMLString);
+                            XMLTags.push(XMLString);
+                            fs.appendFile('tagdata.xml', XMLString, function (err) {
+				if (err) throw err;
+				console.log('It\'s saved!');
+                            });
+                            console.log(noTags);
+			}
+                    }
+		}
                 
             });
         });
@@ -257,15 +262,21 @@ var tagsRank = function(){
             finalRankings = {};
             
             tags.forEach(function(tag) {
-                tagdata = JSON.parse(tag.data);
-                if(!!tag.comments) {
-                    rankings[tag.comments]++;
-                }
-                for (var data in tagdata) {
-                    if (tagdata[data]) {
-                        rankings[data]++;
+		if(!!tag.comments){
+		    if(!!tag.comments) {
+			rankings[tag.comments]++;
                     }
-                }
+		}
+
+		if (!!tag.data){
+		    tagdata = JSON.parse(tag.data);
+                    
+                    for (var data in tagdata) {
+			if (tagdata[data]) {
+                            rankings[data]++;
+			}
+                    }
+		}
             });
             console.log(rankings);
             var sortable = [];
@@ -286,11 +297,12 @@ var tagsRank = function(){
             if(!!tag.comments) {
                 rankings[tag.comments] = 0;
             }
-            
-            tagdata = JSON.parse(tag.data);
-            for (var data in tagdata) {
-                rankings[data] = 0;
-            }
+            if(!!tag.data){
+		tagdata = JSON.parse(tag.data);
+		for (var data in tagdata) {
+                    rankings[data] = 0;
+		}
+	    }
         });
        
         
@@ -300,4 +312,4 @@ var tagsRank = function(){
 }
 
 //Final
-//tagsRank();
+tagsRank();

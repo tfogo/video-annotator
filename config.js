@@ -1,4 +1,4 @@
 module.exports = {
-    videoDir: '/home/tim/Videos/marathon-vids',
+    videoDir: '/media/sf_marathon/videos/output/select',
     db: 'mongodb://localhost/video-annotator'
 };
