@@ -135,7 +135,7 @@ var numberOfTags = function() {
 };
 
 // SECOND: XML File
-numberOfTags();
+//numberOfTags();
 
 var JSONTags = function() {
     Tag.find({}, function(err, tags){
