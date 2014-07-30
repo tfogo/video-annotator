@@ -311,4 +311,41 @@ var tagsRank = function(){
 }
 
 //Final
-tagsRank();
+//tagsRank();
+
+var usersPerVid = function(){
+    rankings = {};
+    
+    var rankVids = function() {
+        Tag.find({}, function(err, tags){
+            finalRankings = {};
+            tags.forEach(function(tag) {
+                rankings[tag.vidName]++;
+            });
+            console.log(rankings);
+            var sortable = [];
+            for (var user in rankings) {
+                sortable.push([user, rankings[user]]);
+            }
+            sortable.sort(function(a, b) {return a[1] - b[1]});
+            sortable.forEach(function(arr) {
+                finalRankings[arr[0]] = arr[1];
+            });
+            console.log(finalRankings);
+            //process.exit(0);
+        });
+    };
+    
+    Video.find({}, function(err, videos) {
+        videos.forEach(function(vid) {
+            rankings[vid.name] = vid.users;
+        });
+
+        console.log(rankings);
+        
+        //rankVids()
+    });
+
+}
+
+usersPerVid();
