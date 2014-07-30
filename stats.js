@@ -69,10 +69,10 @@ var popduration = function() {
 noTags = 0;
 JSONTags = [];
 XMLTags = [];
-// fs.writeFile('tagdata.xml', '<?xml version="1.0" encoding="UTF-8"?>\n', function (err) {
-//     if (err) throw err;
-//     console.log('It\'s saved!');
-// });
+fs.writeFile('tagdata.xml', '<?xml version="1.0" encoding="UTF-8"?>\n', function (err) {
+    if (err) throw err;
+    console.log('It\'s saved!');
+});
 // fs.writeFile('tagdata.json', '{data:[', function (err) {
 //     if (err) throw err;
 //     console.log('It\'s saved!');
@@ -135,7 +135,7 @@ var numberOfTags = function() {
 };
 
 // SECOND: XML File
-//numberOfTags();
+numberOfTags();
 
 var JSONTags = function() {
     Tag.find({}, function(err, tags){
@@ -348,4 +348,4 @@ var usersPerVid = function(){
 
 }
 
-usersPerVid();
+//usersPerVid();
