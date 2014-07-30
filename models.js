@@ -18,7 +18,8 @@ var TagSchema = new Schema({
 var VideoSchema = new Schema({
     name: String,
     users: [String],
-    numberOfUsers: {type: Number, default: 0}
+    numberOfUsers: {type: Number, default: 0},
+    duration: Number
 });
 
 mongoose.model('Video', VideoSchema);
