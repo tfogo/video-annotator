@@ -41,7 +41,7 @@ var popduration = function() {
             var min = stdout.match(pattern)[2];
             var sec = stdout.match(pattern)[3];
 
-            var time = hrs*3600 + min*60 + sec;
+            var time = hrs*3600 + min*60 + sec*1;
 
             Video.find({name: vid}, function(err, vids) {
                 var v = vids[0];
