@@ -63,8 +63,13 @@ module.exports = function(app, passport) {
     app.get('/', function(req, res) {
         if(!!req.user) {
             Video.find({users: {$ne: req.user.username}}).sort('numberOfUsers').limit(1).exec(function(err, vid) {
+                
                 videoObj = vid[0]
                 console.log(videoObj);
+                if(videoObj.numberOfUsers == 1){
+                    console.log(done);
+                    res.send('Done');
+                }
                 videoObj.numberOfUsers++;
                 videoObj.users.push(req.user.username);
                 console.log(videoObj);
