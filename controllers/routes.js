@@ -12,11 +12,9 @@ var tagnames = JSON.parse(fs.readFileSync('tags.json'));
 var vidNumber = 0;
 
 var findVid = function(user) {
-    
     // Video.find({users: {$ne: user.username}}).sort(numberOfUsers).limit(1), function(err, vid) {
     //     console.log(vid);
     // });
-    
 }
 
 Video.remove({});
@@ -37,19 +35,27 @@ module.exports = function(app, passport) {
         failureRedirect: '/failure',
         failureFlash: true
     }), function(req, res) {
-        Video.find({users: {$ne: req.user.username}}).sort('numberOfUsers').limit(1).exec(function(err, vid) {
-                videoObj = vid[0]
-                console.log(videoObj);
-                videoObj.numberOfUsers++;
-                videoObj.users.push(req.user.username);
-                console.log(videoObj);
-                videoObj.save(function(err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                }); 
-                res.redirect('/watch?v=' + videoObj.name);
-            });
+        Video.find({users: {$ne: req.user.username}}).sort('numberOfUsers').exec(function(err, vid) {
+
+            var vidsRemaining = 0;
+            for (var i = 0; i < vid.length; i++){
+                if (vid[i].numberOfUsers === 0) {
+                    vidsRemaining++;
+                }
+            }
+
+            videoObj = vid[0]
+            console.log(videoObj);
+            videoObj.numberOfUsers++;
+            videoObj.users.push(req.user.username);
+            console.log(videoObj);
+            videoObj.save(function(err) {
+                if (err) {
+                    console.log(err);
+                }
+            }); 
+            res.redirect('/watch?v=' + videoObj.name + '&remaining=' + vidsRemaining);
+        });
     });
     
     app.get('/tags', tags.all);
@@ -62,7 +68,16 @@ module.exports = function(app, passport) {
 
     app.get('/', function(req, res) {
         if(!!req.user) {
-            Video.find({users: {$ne: req.user.username}}).sort('numberOfUsers').limit(1).exec(function(err, vid) {
+            Video.find({users: {$ne: req.user.username}}).sort('numberOfUsers').exec(function(err, vid) {
+                var vidsRemaining = 0;
+                for (var i = 0; i < vid.length; i++){
+                    console.log(i);
+                    if (vid[i].numberOfUsers === 0) {
+                        vidsRemaining++;
+                    }
+
+                    console.log(vidsRemaining);
+                }
                 
                 videoObj = vid[0]
                 console.log(videoObj);
@@ -78,7 +93,7 @@ module.exports = function(app, passport) {
                         console.log(err);
                     }
                 }); 
-                res.redirect('/watch?v=' + videoObj.name);
+                res.redirect('/watch?v=' + videoObj.name + '&remaining=' + vidsRemaining);
             });
             //res.redirect('/watch?v=' + videos[vidNumber++ % videos.length]);
         } else {
