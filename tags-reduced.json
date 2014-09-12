@@ -1,0 +1,28 @@
+{
+    "Runner density": [
+        ["none",
+        "sparse",
+        "average",
+        "many",
+        "dense"]
+    ],
+    "Race elements": [
+        ["start line",
+        "finish line",
+        "race close up",
+        "race from distance",
+        "spectators",
+        "scenery"]
+    ],
+    "Features of landscape": [
+        ["urban",
+        "countryside"]
+    ],
+    "Camera work": [
+        ["non footage",
+        "blurry",
+        "walking with camera",
+        "still shot",
+        "tracking shot"]
+    ]
+}

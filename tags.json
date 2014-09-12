@@ -1,28 +1,64 @@
 {
-    "Runner density": [
-        ["none",
-        "sparse",
-        "average",
-        "many",
-        "dense"]
+    "Content": [
+        ["wheelchair racers",
+        "walking racers",
+        "running racers",
+        "front runners",
+        "pace runner",
+        "fun runners",
+        "runner with banner"],
+        ["pre-race",
+        "start line",
+        "race",
+        "post-race",
+        "finish line"],
+        ["spectators",
+        "cyclist",
+        "police",
+        "organizers",
+        "entertainers",
+        "children",
+        "runners waving",
+        "cheering/clapping"]
     ],
-    "Race elements": [
-        ["start line",
-        "finish line",
-        "race close up",
-        "race from distance",
-        "spectators",
-        "scenery"]
+    "Terrain": [
+        ["quiet course",
+        "busy course",
+        "scenery"],
+        ["grass section",
+        "road section"],
+        ["uphill",
+        "downhill",
+        "level ground"]
     ],
-    "Features of landscape": [
-        ["urban",
-        "countryside"]
+    "Quality": [
+        ["too dark",
+        "too bright",
+        "blurred",
+        "shaky"],
+        ["lens flare",
+        "silhouettes",
+        "obstruction",
+        "poor framing",
+        "too distant",
+        "faces not visible",
+        "junk footage"]
     ],
-    "Camera work": [
-        ["non footage",
-        "blurry",
-        "walking with camera",
-        "still shot",
-        "tracking shot"]
+    "Shot": [
+        ["still shot",
+        "low perspective",
+        "tracking",
+        "panning",
+        "camera moving"],
+        ["portrait",
+        "landscape"]
+    ],
+    "Audio": [
+        ["background music",
+        "interesting sound",
+        "professional commentary",
+        "amateur commentary"],
+        ["profanity",
+        "negative comments"]
     ]
 }
